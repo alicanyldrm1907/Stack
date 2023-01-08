@@ -1,52 +1,64 @@
-# Prerequisites
-*.d
+#include <stdio.h>
+#include <stdlib.h>
+struct node {
+	int x;
+	struct node *next;
+};
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+struct node *top=NULL;
 
-# Linker output
-*.ilk
-*.map
-*.exp
+int push(int data) {
+	if (top==NULL) {
+	struct node *new=(struct node*)malloc(sizeof(struct node));
+	new->x=data;
+	new->next=NULL;
+	top=new;
+	}
+	
+	else {
+		struct node *new=(struct node*)malloc(sizeof(struct node));
+		new->x=data;
+		new->next=NULL;
+		new->next=top;
+		top=new;
+	}
+	
+}
 
-# Precompiled Headers
-*.gch
-*.pch
+int pop () {
+	struct node *temp=top;
+	top=top->next;
+	free(temp);
+}
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
+int print() {
+	
+	if (top==NULL) {
+		printf("Yigin bos");
+		return 1;
+	}
+	
+	while (top!=NULL) {
+		printf("%d ",top->x);
+		top=top->next;
+	}
+	printf("\n");
+}
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
-
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+int peek () {
+	if (top==NULL) {
+		printf("Yigin bos: ");
+		return 1;
+	}
+		printf("Son eleman : %d\n",top->x);
+}
+int main () {
+	push(12);
+	push(15);
+	push(23);
+	print();
+	push(13);
+	push(24);
+	push(95);
+	print();
+}
